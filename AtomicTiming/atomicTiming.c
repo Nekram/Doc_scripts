@@ -12,7 +12,7 @@ int main()
 
 	//going for a standard test size of 2000 iterations unless otherwise
 	//necessary
-	for(i=0; i<2000; ++i)
+//	for(i=0; i<2000; ++i)
 	{
 		c0 = clock();
 		for (j=0;j<100000000; ++j)
