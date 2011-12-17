@@ -2,23 +2,31 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-
+#define PAGE_SIZE 4096
+#define SIZE 2*PAGE_SIZE 
 int main()
 {
-	time_t t0, t1;
 	clock_t c0, c1;
 
-	long count;
 	int * ptr;
-	t0=time(NULL);		//initial time	
-
-	while(1)
+	int * other;
+	int k;
+	//changed form while to for to standardize the test to 2000 iterations
+//	for( k=0; k<2000;++k)
 	{
 		int i;
-		for( int i=0; i<10; ++i)
+		c0=clock();
+		for(  i=0; i<100000; ++i)
 		{
-			ptr=malloc(4096*sizeof(int));
+			ptr=malloc(SIZE*sizeof(int));
+			memset(ptr,1,SIZE);
+			int j;
+			other=ptr;
+			for (j=0;j<SIZE; ++j)
+				other++;
 			free(ptr);
 		}
+		c1=clock();
+		printf("%f\n",(double)((double)(c1-c0)/CLOCKS_PER_SEC));
 	}
 }
