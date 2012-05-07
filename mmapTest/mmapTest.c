@@ -11,8 +11,8 @@ int main()
 	int * ptr;
 	int * other;
 	int k;
-	//changed form while to for to standardize the test to 2000 iterations
-//	for( k=0; k<2000;++k)
+
+
 	{
 		int i;
 		c0=clock();
