@@ -3,20 +3,30 @@
 '''
 
 import os, sys, re, shlex, subprocess
+from time import sleep
 
+# this function takes a 1-d list of numbers and makes a string out of it
+def listToString(data):
+	ret=""
+	for i in data:
+		ret+=str(i)+"\n"
+	return ret
 
-
-def getPSData(n,dom,kernel):
-	command = "/home/brandon/Projects/vix/vix-tl/cli-utils/linux/bin"
-	command +="/vt-ps -d "+ dom" -k "+kernel
+def getPSData(n,dom):
+	command ="process-list "+dom
 	data=[]
-	p = subprocess.Popen(shlex.split(command),stdout=subprocess.PIPE)
 	for i in range(n+1):
-		temp=len(p.communicate()[0])
-		data.append(temp)
-	return temp
+		print(str(i) + "/"+str(n))		
+		p = subprocess.Popen(shlex.split(command),stdout=subprocess.PIPE)
+		temp=p.communicate()[0]
+		temp=re.split('\n',temp)
+		data.append(len(temp))
+			
+	return data
 
-def main():
-	p = subprocess.Popen(shlex.split(command))
-	print(p) 
+if __name__=='__main__':	
+	data=getPSData(3000,sys.argv[1])
+	handle=open(sys.argv[2],'w')
+	handle.write(listToString(data))
+	print("done!")		
 
