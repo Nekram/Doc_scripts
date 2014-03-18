@@ -5,6 +5,8 @@
 #include <chrono>
 #include <cstring>
 #include <thread>
+#include <array>
+#include <vector>
 #define PAGE_SIZE 4096
 #define SIZE 4*PAGE_SIZE 
 
@@ -17,10 +19,12 @@ int main()
 	void  * ptr;
 	unsigned char * other;
 	int k;
+	const int theSize=10000000;
+	vector<double> data(theSize);
  std::chrono::time_point<std::chrono::high_resolution_clock> start, end;
 	
 
-for(int k=0; k<1000000; ++k)
+for(int k=0; k<theSize; ++k)
 {
 	 start = std::chrono::high_resolution_clock::now();
 		int i;
@@ -32,10 +36,14 @@ for(int k=0; k<1000000; ++k)
 	end = std::chrono::high_resolution_clock::now();
 	chrono::duration<double> dt=end-start;
 	
-	
-	cout << chrono::duration_cast<chrono::nanoseconds>(dt).count() << endl;
-	this_thread::sleep_for(chrono::milliseconds(1));
+	data[k]=chrono::duration_cast<chrono::nanoseconds>(dt).count();
+//	this_thread::sleep_for(chrono::milliseconds(1));
 	}	
+	
+	for(double i : data)
+	{
+		cout << i << endl;
+	}
 	return 0;
 }
 
